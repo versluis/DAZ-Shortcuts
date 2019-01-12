@@ -1,0 +1,45 @@
+// DAZ Studio version 4.6.2.118 filetype DAZ Script
+
+var oActionMgr = MainWindow.getActionMgr();
+var nActions = oActionMgr.getNumActions();
+var oAction = undefined;
+var oActionName = undefined;
+var sShortcut = undefined;
+var aShortcuts = [];
+var i = 0;
+
+// Create a new dialog
+var wDlg = new DzBasicDialog;
+wDlg.caption = "Keyboard Shortcuts";
+
+// Create a listbox
+var wTextBx = new DzTextEdit( wDlg );
+wDlg.addWidget( wTextBx );
+
+// Collect shortcuts
+for( i = 0; i < nActions; i += 1 ){
+ oAction = oActionMgr.getAction( i );
+ sShortcut = oAction.shortcut.toString();
+ if( !sShortcut.isEmpty() ){
+  aShortcuts.push( String("%1 = %2").arg( sShortcut ).arg( oAction.text.replace("&", "" ) ) );
+ }
+}
+
+// Collect custom action shortcuts
+nActions = oActionMgr.getNumCustomActions();
+for( i = 0; i < nActions; i += 1 ){
+ oActionName = oActionMgr.getCustomActionText( i );
+ sShortcut = oActionMgr.getCustomActionShortcut(i);
+ if( !sShortcut.isEmpty() ){
+  aShortcuts.push( String("%1 = %2").arg( sShortcut ).arg( oActionName.replace("&", "" ) ) );
+ }
+}
+aShortcuts.sort();
+
+// Populate the textbox
+for( i = 0; i < aShortcuts.length; i += 1 ){
+ wTextBx.append( aShortcuts[ i ] );
+}
+
+// Show the dialog
+wDlg.exec();  
