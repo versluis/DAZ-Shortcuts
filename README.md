@@ -12,3 +12,4 @@ The script currently does not display user defined shorcuts, or shortcuts for vi
 
 Pull requests and amendmends are always welcome!
 
+Release Post: https://www.versluis.com/?p=10586
